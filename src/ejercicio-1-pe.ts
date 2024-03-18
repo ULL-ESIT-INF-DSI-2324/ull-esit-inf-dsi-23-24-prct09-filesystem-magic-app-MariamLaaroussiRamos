@@ -1,5 +1,5 @@
 /**
- * Clase abstracta que define el esqueleto del algoritmo de Filter, Map y Reduce.
+ * Clase abstracta que define el esqueleto de Filter, Map y Reduce.
  */
 export abstract class FilterMapReduce {
     /**
