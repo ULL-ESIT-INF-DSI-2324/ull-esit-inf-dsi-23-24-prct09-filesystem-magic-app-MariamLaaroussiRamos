@@ -10,7 +10,7 @@ describe("FilterMapReduce tests", () => {
     filterMapAddReduce = new FilterMapAddReduce();
     filterMapSubReduce = new FilterMapSubReduce();
   });
-/**
+
   it("debería aplicar filter, map y reduce para sumar números positivos", () => {
     const numbers = [1, -2, 3, -4, 5];
     const sumResult = filterMapAddReduce.executePipeline(numbers, filterMapAddReduce.defaultPredicate);
@@ -34,7 +34,7 @@ describe("FilterMapReduce tests", () => {
     const mappedData = filterMapSubReduce.mapData(numbers, filterMapSubReduce.mapFunction);
     expect(mappedData).to.deep.equal([2, 6, 10]); // Mapeo de 1*2, 3*2, 5*2
   });
-*/
+
   it("debería filtrar números positivos", () => {
     const numbers = [1, -2, 3, -4, 5];
     const filteredData = filterMapAddReduce.filterData(numbers, filterMapAddReduce.defaultPredicate);
