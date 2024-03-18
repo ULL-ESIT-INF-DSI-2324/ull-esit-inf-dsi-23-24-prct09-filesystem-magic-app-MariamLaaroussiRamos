@@ -1,0 +1,54 @@
+{
+  "name": "theory-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc-watch --onSuccess \"node dist/ejercicio-1-pe.js\"",
+    "doc": "typedoc",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls && rm -rf .nyc_output",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "chai": "^4.4.1",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "mocha": "^10.3.0",
+    "nyc": "^15.1.0",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "tsc-watch": "^6.0.4",
+    "typedoc": "^0.25.8",
+    "typescript": "^5.3.3"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "duplexer": "^0.1.2",
+    "event-stream": "^3.3.4",
+    "from": "^0.1.7",
+    "isexe": "^2.0.0",
+    "map-stream": "^0.1.0",
+    "node-cleanup": "^2.1.2",
+    "path-key": "^3.1.1",
+    "pause-stream": "^0.0.11",
+    "ps-tree": "^1.2.0",
+    "shebang-command": "^2.0.0",
+    "shebang-regex": "^3.0.0",
+    "split": "^0.3.3",
+    "stream-combiner": "^0.0.4",
+    "string-argv": "^0.3.2",
+    "through": "^2.3.8",
+    "which": "^2.0.2"
+  }
+}
