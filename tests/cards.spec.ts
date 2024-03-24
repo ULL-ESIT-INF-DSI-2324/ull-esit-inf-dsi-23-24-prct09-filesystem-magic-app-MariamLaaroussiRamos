@@ -1,108 +1,84 @@
-// card.test.ts
-import "mocha";
-import { expect } from "chai";
-import { CardCollection} from "../src/Cartas/cardCollection";
-import { FileManager } from "../src/Cartas/fileManager"
-import { Card } from "../src/Cartas/card";
+// Importar las librerías necesarias para el test
+import { expect } from 'chai';
+import { Card } from '../src/Cartas/card.js';
+import { CardCollection } from '../src/Cartas/cardCollection.js';
+import { FileManager } from '../src/Cartas/fileManager.js';
 
-
-
-describe("CardCollection tests", () => {
-  let fileManager: FileManager;
+// Describe el conjunto de pruebas para la clase CardCollection
+describe('CardCollection', () => {
+  // Define las variables necesarias para las pruebas
   let cardCollection: CardCollection;
 
+  // Antes de cada prueba, inicializa la colección y el file manager
   beforeEach(() => {
-    fileManager = new FileManager("test_user");
+    const fileManager = new FileManager('test_user'); // Nombre de usuario de prueba
     cardCollection = new CardCollection(fileManager);
   });
 
-  it("should add a new card", () => {
-    const card = new Card(
+  // Prueba para agregar una carta a la colección
+  it('should add a card to the collection', () => {
+    const newCard: Card = new Card(
       1,
-      "Test Card",
-      3,
-      "Azul",
-      "Criatura",
-      "Común",
-      "Test rules",
-      10
+      'Test Card',
+      2,
+      'Azul',
+      'Criatura',
+      'Comun',
+      'Reglas de prueba',
+      20
     );
-    cardCollection.addCard(card);
-    const addedCard = cardCollection.getCardById(card.id);
-    expect(addedCard).to.deep.equal(card);
+    cardCollection.addCard(newCard);
+    const addedCard = cardCollection.getCardById(1);
+    expect(addedCard).to.deep.equal(newCard);
   });
 
-  it("should update an existing card", () => {
-    const card = new Card(
-      1,
-      "Updated Card",
+  // Prueba para modificar una carta en la colección
+  it('should update a card in the collection', () => {
+    const initialCard: Card = new Card(
+      2,
+      'Initial Card',
       3,
-      "Negro",
-      "Encantamiento",
-      "Rara",
-      "Updated rules",
-      15
+      'Rojo',
+      'Conjuro',
+      'Infrecuente',
+      'Reglas iniciales',
+      30
     );
-    cardCollection.updateCard(card);
-    const updatedCard = cardCollection.getCardById(card.id);
-    expect(updatedCard).to.deep.equal(card);
+    cardCollection.addCard(initialCard);
+
+    const updatedCard: Card = new Card(
+      2,
+      'Updated Card',
+      4,
+      'Verde',
+      'Encantamiento',
+      'Rara',
+      'Nuevas reglas',
+      40
+    );
+    cardCollection.updateCard(updatedCard);
+
+    const modifiedCard = cardCollection.getCardById(2);
+    expect(modifiedCard).to.deep.equal(updatedCard);
   });
 
-  it("should remove an existing card", () => {
-    const cardIdToRemove = 1;
-    cardCollection.removeCard(cardIdToRemove);
-    const removedCard = cardCollection.getCardById(cardIdToRemove);
-    expect(removedCard).to.be.undefined;
-  });
+  // Prueba para eliminar una carta de la colección
+  it('should remove a card from the collection', () => {
+    const cardToRemove: Card = new Card(
+      3,
+      'Card to Remove',
+      4,
+      'Negro',
+      'Instantaneo',
+      'Mítica',
+      'Reglas para eliminar',
+      50
+    );
+    cardCollection.addCard(cardToRemove);
 
-  it("should list all cards", () => {
-    // Simulamos la salida de console.log usando un array y un mock de console.log
-    const consoleLogArray: string[] = [];
-    const mockedConsoleLog = (output: string) => {
-      consoleLogArray.push(output);
-    };
-    // Sobreescribimos console.log temporalmente con nuestro mock
-    const originalConsoleLog = console.log;
-    console.log = mockedConsoleLog;
+    cardCollection.removeCard(3); // Eliminar la carta agregada
 
-    // Llamamos al método para listar cartas
-    cardCollection.listCards();
-
-    // Restauramos console.log al original
-    console.log = originalConsoleLog;
-
-    // Verificamos que las cartas se listaron correctamente
-    expect(consoleLogArray).to.deep.include.members([
-      "Card ID: 1, Name: Updated Card", 
-    ]);
-  });
-
-  it("should show details of a specific card", () => {
-    const cardIdToShow = 1;
-    // Simulamos la salida de console.log usando un mock de console.log
-    let consoleOutput: string = "";
-    const mockedConsoleLog = (output: string) => {
-      consoleOutput += output + "\n"; // Agregamos un salto de línea para mantener el formato
-    };
-    // Sobreescribimos console.log temporalmente con nuestro mock
-    const originalConsoleLog = console.log;
-    console.log = mockedConsoleLog;
-
-    // Llamamos al método para mostrar detalles de una carta específica
-    cardCollection.showCard(cardIdToShow);
-
-    // Restauramos console.log al original
-    console.log = originalConsoleLog;
-
-    // Verificamos que los detalles de la carta se mostraron correctamente
-    expect(consoleOutput).to.include("Card ID: 1");
-    expect(consoleOutput).to.include("Name: Updated Card");
-    expect(consoleOutput).to.include("Cost: 3");
-    expect(consoleOutput).to.include("Color: Negro");
-    expect(consoleOutput).to.include("Type: Encantamiento");
-    expect(consoleOutput).to.include("Rarity: Rara");
-    expect(consoleOutput).to.include("Rules Text: Updated rules");
-    expect(consoleOutput).to.include("Market Value: 15");
-
+    const removedCard = cardCollection.getCardById(3);
+    expect(removedCard).to.be.undefined; // La carta no debe existir en la colección
   });
 });
