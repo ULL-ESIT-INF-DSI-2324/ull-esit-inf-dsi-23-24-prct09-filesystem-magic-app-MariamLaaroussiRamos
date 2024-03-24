@@ -1,4 +1,3 @@
-// index.ts
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import chalk from 'chalk';
@@ -6,29 +5,73 @@ import { Card, CardType, CardColor, CardRarity } from './card.js';
 import { FileManager } from './fileManager.js';
 import { CardCollection } from './cardCollection.js';
 
-const USERNAME = 'username'; // Cambiar por el nombre de usuario real
-
-const fileManager = new FileManager(USERNAME);
-const cardCollection = new CardCollection(fileManager);
-
+// Configuración de yargs para manejar los comandos y argumentos de la línea de comandos
 yargs(hideBin(process.argv))
+  // Comando 'add' para agregar una carta a la colección
   .command('add', 'Adds a card to the collection', {
-    id: { description: 'Card ID', type: 'number', demandOption: true },
-    name: { description: 'Card Name', type: 'string', demandOption: true },
-    manaCost: { description: 'Mana Cost', type: 'number', demandOption: true },
-    color: { description: 'Card Color', type: 'string', choices: Object.values(CardColor), demandOption: true },
-    type: { description: 'Card Type', type: 'string', choices: Object.values(CardType), demandOption: true },
-    rarity: { description: 'Card Rarity', type: 'string', choices: Object.values(CardRarity), demandOption: true },
-    rulesText: { description: 'Rules Text', type: 'string', demandOption: true },
-    marketValue: { description: 'Market Value', type: 'number', demandOption: true },
-    power: { description: 'Card Power', type: 'number' },
-    toughness: { description: 'Card Toughness', type: 'number' },
-    loyalty: { description: 'Card Loyalty', type: 'number' },
+    id: { 
+      description: 'Card ID', 
+      type: 'number', 
+      demandOption: true 
+    },
+    name: { 
+      description: 'Card Name', 
+      type: 'string', 
+      demandOption: true 
+    },
+    cost: { 
+      description: 'Cost', 
+      type: 'number', 
+      demandOption: true 
+    },
+    color: { 
+      description: 'Card Color', 
+      type: 'string', 
+      choices: Object.values(CardColor), 
+      demandOption: true 
+    },
+    type: { 
+      description: 'Card Type', 
+      type: 'string', 
+      choices: Object.values(CardType), 
+      demandOption: true 
+    },
+    rarity: { 
+      description: 'Card Rarity', 
+      type: 'string', 
+      choices: Object.values(CardRarity), 
+      demandOption: true 
+    },
+    rulesText: { 
+      description: 'Rules Text', 
+      type: 'string', 
+      demandOption: true 
+    },
+    marketValue: { 
+      description: 'Market Value', 
+      type: 'number', 
+      demandOption: true 
+    },
+    power: { 
+      description: 'Card Power', 
+      type: 'number' 
+    },
+    toughness: { 
+      description: 'Card Toughness', 
+      type: 'number' 
+    },
+    loyalty: { 
+      description: 'Card Loyalty', 
+      type: 'number' 
+    },
   }, (argv) => {
+    const USERNAME: string = argv.user as string; // Obtener el nombre de usuario como string
+    const fileManager = new FileManager(USERNAME);
+    const cardCollection = new CardCollection(fileManager);
     const newCard = new Card(
       argv.id,
       argv.name,
-      argv.manaCost,
+      argv.cost,
       argv.color,
       argv.type,
       argv.rarity,
@@ -40,23 +83,71 @@ yargs(hideBin(process.argv))
     );
     cardCollection.addCard(newCard);
   })
-  .command('modify', 'Modifies a card in the collection', {
-    id: { description: 'Card ID', type: 'number', demandOption: true },
-    name: { description: 'Card Name', type: 'string' },
-    manaCost: { description: 'Mana Cost', type: 'number' },
-    color: { description: 'Card Color', type: 'string', choices: Object.values(CardColor) },
-    type: { description: 'Card Type', type: 'string', choices: Object.values(CardType) },
-    rarity: { description: 'Card Rarity', type: 'string', choices: Object.values(CardRarity) },
-    rulesText: { description: 'Rules Text', type: 'string' },
-    marketValue: { description: 'Market Value', type: 'number' },
-    power: { description: 'Card Power', type: 'number' },
-    toughness: { description: 'Card Toughness', type: 'number' },
-    loyalty: { description: 'Card Loyalty', type: 'number' },
+  // Comando 'update' para modificar una carta en la colección
+  .command('update', 'Modifies a card in the collection', {
+    id: { 
+      description: 'Card ID', 
+      type: 'number', 
+      demandOption: true 
+    },
+    name: { 
+      description: 'Card Name', 
+      type: 'string', 
+      demandOption: true 
+    },
+    cost: { 
+      description: 'Cost', 
+      type: 'number', 
+      demandOption: true 
+    },
+    color: { 
+      description: 'Card Color', 
+      type: 'string', 
+      choices: Object.values(CardColor), 
+      demandOption: true 
+    },
+    type: { 
+      description: 'Card Type', 
+      type: 'string', 
+      choices: Object.values(CardType), 
+      demandOption: true 
+    },
+    rarity: { 
+      description: 'Card Rarity', 
+      type: 'string', 
+      choices: Object.values(CardRarity), 
+      demandOption: true 
+    },
+    rulesText: { 
+      description: 'Rules Text', 
+      type: 'string', 
+      demandOption: true 
+    },
+    marketValue: { 
+      description: 'Market Value', 
+      type: 'number', 
+      demandOption: true 
+    },
+    power: { 
+      description: 'Card Power', 
+      type: 'number' 
+    },
+    toughness: { 
+      description: 'Card Toughness', 
+      type: 'number' 
+    },
+    loyalty: { 
+      description: 'Card Loyalty', 
+      type: 'number' 
+    },
   }, (argv) => {
+    const USERNAME: string = argv.user as string; // Obtener el nombre de usuario como string
+    const fileManager = new FileManager(USERNAME);
+    const cardCollection = new CardCollection(fileManager);
     const modifiedCard = new Card(
       argv.id,
       argv.name,
-      argv.manaCost,
+      argv.cost,
       argv.color,
       argv.type,
       argv.rarity,
@@ -66,19 +157,40 @@ yargs(hideBin(process.argv))
       argv.toughness,
       argv.loyalty
     );
-    cardCollection.modifyCard(modifiedCard);
+    cardCollection.updateCard(modifiedCard);
   })
+  // Comando 'remove' para eliminar una carta de la colección
   .command('remove', 'Removes a card from the collection', {
-    id: { description: 'Card ID', type: 'number', demandOption: true },
+    user: { 
+      description: 'User name', 
+      type: 'string', 
+      demandOption: true 
+    },
+    id: { description: 'Card ID', 
+    type: 'number', 
+    demandOption: true 
+  },
   }, (argv) => {
-    cardCollection.removeCard(argv.id);
-  })
-  .command('list', 'Lists all cards in the collection', {}, () => {
+    const USERNAME = argv.user; // Obtener el nombre de usuario
+    const fileManager = new FileManager(USERNAME);
+    const cardCollection = new CardCollection(fileManager);
+    cardCollection.removeCard(argv.id); // Revisar si argv.id contiene el ID correcto
+  })  
+  // Comando 'list' para listar todas las cartas en la colección
+  .command('list', 'Lists all cards in the collection', {}, (argv) => {
+    const USERNAME: string = argv.user as string; // Obtener el nombre de usuario como string
+    const fileManager = new FileManager(USERNAME);
+    const cardCollection = new CardCollection(fileManager);
     cardCollection.listCards();
   })
+  // Comando 'show' para mostrar detalles de una carta específica en la colección
   .command('show', 'Shows details of a specific card in the collection', {
     id: { description: 'Card ID', type: 'number', demandOption: true },
   }, (argv) => {
+    const USERNAME: string = argv.user as string; // Obtener el nombre de usuario como string
+
+    const fileManager = new FileManager(USERNAME);
+    const cardCollection = new CardCollection(fileManager);
     cardCollection.showCard(argv.id);
   })
   .help()
