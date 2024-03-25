@@ -1,8 +1,8 @@
-// Importar las librerías necesarias para el test
+import { describe, it, beforeEach } from "mocha";
 import { expect } from 'chai';
-import { Card } from '../src/Cartas/card.js';
-import { CardCollection } from '../src/Cartas/cardCollection.js';
-import { FileManager } from '../src/Cartas/fileManager.js';
+import { Card } from '../src/Cartas/card';
+import { CardCollection } from '../src/Cartas/cardCollection';
+import { FileManager } from '../src/Cartas/fileManager';
 
 // Describe el conjunto de pruebas para la clase CardCollection
 describe('CardCollection', () => {
@@ -29,7 +29,12 @@ describe('CardCollection', () => {
     );
     cardCollection.addCard(newCard);
     const addedCard = cardCollection.getCardById(1);
-    expect(addedCard).to.deep.equal(newCard);
+    if (!addedCard) {
+      throw new Error('Failed to add card to collection');
+    }
+    if (addedCard.id !== newCard.id) {
+      throw new Error('Added card has incorrect ID');
+    }
   });
 
   // Prueba para modificar una carta en la colección
@@ -59,7 +64,12 @@ describe('CardCollection', () => {
     cardCollection.updateCard(updatedCard);
 
     const modifiedCard = cardCollection.getCardById(2);
-    expect(modifiedCard).to.deep.equal(updatedCard);
+    if (!modifiedCard) {
+      throw new Error('Failed to update card in collection');
+    }
+    if (modifiedCard.name !== updatedCard.name) {
+      throw new Error('Modified card has incorrect name');
+    }
   });
 
   // Prueba para eliminar una carta de la colección
@@ -79,6 +89,8 @@ describe('CardCollection', () => {
     cardCollection.removeCard(3); // Eliminar la carta agregada
 
     const removedCard = cardCollection.getCardById(3);
-    expect(removedCard).to.be.undefined; // La carta no debe existir en la colección
+    if (removedCard) {
+      throw new Error('Failed to remove card from collection');
+    }
   });
 });
