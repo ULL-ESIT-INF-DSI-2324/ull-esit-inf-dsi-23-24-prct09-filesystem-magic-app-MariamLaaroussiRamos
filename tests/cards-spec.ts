@@ -1,8 +1,8 @@
 import { describe, it, beforeEach } from "mocha";
 import { expect } from 'chai';
-import { Card } from '../src/Cartas/card';
-import { CardCollection } from '../src/Cartas/cardCollection';
-import { FileManager } from '../src/Cartas/fileManager';
+import { Card } from '../src/Cartas/card.js';
+import { CardCollection } from '../src/Cartas/cardCollection.js';
+import { FileManager } from '../src/Cartas/fileManager.js';
 
 // Describe el conjunto de pruebas para la clase CardCollection
 describe('CardCollection', () => {
